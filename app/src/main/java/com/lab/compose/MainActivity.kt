@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserCardItem(){
+private fun UserCardItem(){
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -80,7 +80,7 @@ fun UserCardItem(){
             .fillMaxSize()
             .background(color = Color.LightGray)
         ){
-            ConstraintLayout(){
+            ConstraintLayout{
                 val (userItem, addButton) = createRefs()
                 Box(
                     modifier = Modifier
