@@ -1,4 +1,7 @@
 import com.playground.AppConfig
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import kotlin.text.set
+
 plugins {
     alias(libs.plugins.android.application.convention.plugin)
     alias(libs.plugins.android.compose.convention.plugin)
@@ -33,11 +36,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true

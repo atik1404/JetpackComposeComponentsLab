@@ -21,18 +21,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetpackComposeLabTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
+                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     Text(
                         text = "Atik faysal",
                         color = Color.Black,
                         fontSize = 16.sp,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
-                            .padding(6.dp, 5.dp)
-                    )
+                            .padding(6.dp, 5.dp))
                 }
             }
         }
