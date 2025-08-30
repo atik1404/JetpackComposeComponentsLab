@@ -1,7 +1,10 @@
 package presentation
 
+import DarkPreview
+import LightDarkPreview
+import SpacingToken
+import TabletPreview
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -11,95 +14,117 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.ChatBubble
-import androidx.compose.material.icons.filled.CheckBox
-import androidx.compose.material.icons.filled.CreditCard
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.MenuOpen
-import androidx.compose.material.icons.filled.TextFields
-import androidx.compose.material.icons.filled.ToggleOn
-import androidx.compose.material.icons.filled.TouchApp
-import androidx.compose.material.icons.filled.Tune
-import androidx.compose.material.icons.filled.ViewHeadline
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-
-
-data class MaterialComponent(
-    val name: String,
-    val icon: ImageVector
-)
-
-val materialComponents = listOf(
-    MaterialComponent("Button", Icons.Default.TouchApp),
-    MaterialComponent("TextField", Icons.Default.TextFields),
-    MaterialComponent("Checkbox", Icons.Default.CheckBox),
-    MaterialComponent("Switch", Icons.Default.ToggleOn),
-    MaterialComponent("Slider", Icons.Default.Tune),
-    MaterialComponent("Card", Icons.Default.CreditCard),
-    MaterialComponent("Dialog", Icons.Default.ChatBubble),
-    MaterialComponent("DropdownMenu", Icons.Default.ArrowDropDown),
-    MaterialComponent("TopAppBar", Icons.Default.ViewHeadline),
-    MaterialComponent("BottomAppBar", Icons.Default.Menu),
-    MaterialComponent("FAB", Icons.Default.Add),
-    MaterialComponent("NavigationDrawer", Icons.Default.MenuOpen)
-)
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import appHorizontalArrangement
+import appVerticalArrangement
+import com.lab.compose.designsystem.spacing.ElevationToken
+import com.lab.compose.designsystem.spacing.IconSizeToken
+import com.lab.compose.designsystem.spacing.RadiusToken
+import com.lab.compose.designsystem.theme.AppTheme
+import com.lab.compose.designsystem.typography.AppTypography
+import com.lab.compose.model.materialComponents
+import com.lab.compose.ui.common.AppToolbar
+import com.lab.compose.ui.components.AppText
+import com.lab.compose.R as Res
+import com.lab.compose.model.MaterialComponentEntity
+import com.lab.compose.model.MaterialComponentName
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MaterialComponentGrid(onButtonClick: () -> Unit) {
+fun MaterialComponentGrid(onButtonClick: (component: MaterialComponentName) -> Unit) {
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Components") }) }
-    ){ padding ->
+        topBar = {
+            AppToolbar(
+                title = stringResource(Res.string.title_home),
+                modifier = Modifier.fillMaxWidth(),
+                elevation = ElevationToken.medium
+            )
+        }
+    ) { padding ->
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             modifier = Modifier
-                .padding(padding)
-                .padding(16.dp),
-            contentPadding = PaddingValues(8.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(padding),
+            contentPadding = PaddingValues(SpacingToken.small),
+            verticalArrangement = appVerticalArrangement(SpacingToken.medium),
+            horizontalArrangement = appHorizontalArrangement(SpacingToken.medium)
         ) {
             items(materialComponents.size) { index ->
                 val component = materialComponents[index]
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            if (component.name == "Button") onButtonClick()
-                        },
-                    elevation = CardDefaults.cardElevation(4.dp)
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Icon(
-                            imageVector = component.icon,
-                            contentDescription = component.name,
-                            modifier = Modifier.size(30.dp)
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(component.name, maxLines = 1, fontSize = 12.sp)
-                    }
+                BuildItemCard(component) { item ->
+                    onButtonClick(item)
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun BuildItemCard(
+    component: MaterialComponentEntity,
+    onButtonClick: (component: MaterialComponentName) -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(RadiusToken.medium))
+            .clickable {
+                onButtonClick(component.name)
+            },
+        elevation = CardDefaults.cardElevation(ElevationToken.small)
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(SpacingToken.large)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            BuildItemIcon(component.icon)
+            Spacer(modifier = Modifier.height(SpacingToken.medium))
+            BuildItemText(component.name.name)
+        }
+    }
+}
+
+@Composable
+fun BuildItemIcon(icon: ImageVector) {
+    Icon(
+        imageVector = icon,
+        contentDescription = "Content Description",
+        modifier = Modifier.size(IconSizeToken.large)
+    )
+}
+
+@Composable
+fun BuildItemText(componentName: String) {
+    AppText(
+        text = componentName,
+        modifier = Modifier.fillMaxWidth(),
+        alignment = TextAlign.Center,
+        textStyle = AppTypography.bodySmall
+    )
+}
+
+
+@Composable
+@LightDarkPreview
+//@TabletPreview
+fun CardPreview() {
+    AppTheme {
+        MaterialComponentGrid {
+
         }
     }
 }

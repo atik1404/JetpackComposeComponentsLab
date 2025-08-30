@@ -5,7 +5,7 @@ ksp = "2.2.10-2.0.2"
 
 secrets = "2.0.1"
 
-agp = "8.12.1"
+agp = "8.12.2"
 kotlin = "2.2.10"
 
 androidxAppCompat = "1.7.1"
@@ -155,7 +155,7 @@ androidx-core-dependencies = ["androidx.core.ktx", "androidx.appcompat", ]
 android-compose-dependencies = [
     "androidx.compose.activity", "androidx.compose.bom", "androidx.compose.ui",
     "androidx.compose.ui.graphics", "androidx.compose.constraintlayout",
-    "androidx.compose.foundation",
+    "androidx.compose.foundation"
 ]
 
 android-compose-feature-dependencies = [
