@@ -1,9 +1,7 @@
-package presentation
+package com.lab.compose.presentation
 
-import DarkPreview
 import LightDarkPreview
 import SpacingToken
-import TabletPreview
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -40,6 +38,7 @@ import com.lab.compose.ui.components.AppText
 import com.lab.compose.R as Res
 import com.lab.compose.model.MaterialComponentEntity
 import com.lab.compose.model.MaterialComponentName
+import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

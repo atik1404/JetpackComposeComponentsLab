@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowInsetsControllerCompat
 import com.lab.compose.designsystem.theme.AppTheme
-import com.lab.compose.navigation.AppNavHost
+import com.lab.compose.navigation.AppNav
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 ApplyStatusBarFromTheme()
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    AppNavHost()
+                    AppNav()
                 }
             }
         }

@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.android.compose.convention.plugin)
     alias(libs.plugins.android.hilt.convention.plugin)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.org.jetbrains.kotlin.plugin.serialization)
 }
 
 android {
@@ -53,6 +54,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.kotlinx.serialization.core)
 
     implementation(libs.bundles.androidx.core.dependencies)
     implementation(libs.bundles.androidx.lifecycle.dependencies)
@@ -64,6 +66,7 @@ dependencies {
     implementation(libs.bundles.rxjava3.dependencies)
     implementation(libs.bundles.pager.dependencies)
     implementation(libs.bundles.network.dependencies)
+    implementation(libs.bundles.compose.navigation.depedendencies)
 
     implementation(libs.image.coil)
     implementation(libs.timber)
