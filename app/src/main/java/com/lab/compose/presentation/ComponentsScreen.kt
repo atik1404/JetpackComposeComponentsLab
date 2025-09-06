@@ -38,11 +38,10 @@ import com.lab.compose.ui.components.AppText
 import com.lab.compose.R as Res
 import com.lab.compose.model.MaterialComponentEntity
 import com.lab.compose.model.MaterialComponentName
-import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MaterialComponentGrid(onButtonClick: (component: MaterialComponentName) -> Unit) {
+fun MaterialComponentGrid(onItemClicked: (component: MaterialComponentName) -> Unit) {
     Scaffold(
         topBar = {
             AppToolbar(
@@ -63,7 +62,7 @@ fun MaterialComponentGrid(onButtonClick: (component: MaterialComponentName) -> U
             items(materialComponents.size) { index ->
                 val component = materialComponents[index]
                 BuildItemCard(component) { item ->
-                    onButtonClick(item)
+                    onItemClicked(item)
                 }
             }
         }
@@ -73,14 +72,14 @@ fun MaterialComponentGrid(onButtonClick: (component: MaterialComponentName) -> U
 @Composable
 fun BuildItemCard(
     component: MaterialComponentEntity,
-    onButtonClick: (component: MaterialComponentName) -> Unit
+    onItemClicked: (component: MaterialComponentName) -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(RadiusToken.medium))
             .clickable {
-                onButtonClick(component.name)
+                onItemClicked(component.name)
             },
         elevation = CardDefaults.cardElevation(ElevationToken.small)
     ) {

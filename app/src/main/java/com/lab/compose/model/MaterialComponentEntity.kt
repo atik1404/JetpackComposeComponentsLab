@@ -5,6 +5,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.CheckBox
 import androidx.compose.material.icons.filled.DragIndicator
+import androidx.compose.material.icons.filled.FontDownload
 import androidx.compose.material.icons.filled.Inbox
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.TextFields
@@ -23,6 +24,7 @@ data class MaterialComponentEntity(
 val materialComponents = listOf(
     MaterialComponentEntity(MaterialComponentName.Button, Icons.Default.TouchApp),
     MaterialComponentEntity(MaterialComponentName.TextField, Icons.Default.TextFields),
+    MaterialComponentEntity(MaterialComponentName.Text, Icons.Default.FontDownload),
     MaterialComponentEntity(MaterialComponentName.Checkbox, Icons.Default.CheckBox),
     MaterialComponentEntity(MaterialComponentName.Switch, Icons.Default.ToggleOn),
     MaterialComponentEntity(MaterialComponentName.Slider, Icons.Default.Tune),

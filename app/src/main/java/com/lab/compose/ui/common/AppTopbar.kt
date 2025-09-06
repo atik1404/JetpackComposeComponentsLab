@@ -33,7 +33,7 @@ fun AppToolbar(
     backgroundColor: Color = MaterialTheme.colorScheme.primary,
     contentColor: Color = MaterialTheme.colorScheme.onPrimary,
     centerTitle: Boolean = false,
-    titleTextStyle: TextStyle = MaterialTheme.typography.titleLarge,
+    titleTextStyle: TextStyle = MaterialTheme.typography.titleMedium,
     onTitleClick: (() -> Unit)? = null,
     elevation: Dp = 0.dp,
     scrollBehavior: TopAppBarScrollBehavior? = TopAppBarDefaults.pinnedScrollBehavior(),
