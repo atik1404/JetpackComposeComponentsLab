@@ -1,5 +1,6 @@
 package com.lab.compose.navigation
 
+import CheckboxScreen
 import androidx.navigation3.runtime.EntryProviderBuilder
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
@@ -12,7 +13,7 @@ import com.lab.compose.presentation.TextScreen
 object ComponentNavGraph {
     fun register(
         backStack: NavBackStack,
-        builder: EntryProviderBuilder<NavKey>
+        builder: EntryProviderBuilder<NavKey>,
     ) = with(builder) {
         entry(ComponentScreen.Button) {
             ButtonScreen {
@@ -26,6 +27,12 @@ object ComponentNavGraph {
         }
         entry(ComponentScreen.Text) {
             TextScreen {
+                backStack.removeLastOrNull()
+            }
+        }
+
+        entry(ComponentScreen.CheckBox) {
+            CheckboxScreen {
                 backStack.removeLastOrNull()
             }
         }

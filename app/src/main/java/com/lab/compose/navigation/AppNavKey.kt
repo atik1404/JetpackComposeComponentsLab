@@ -14,6 +14,9 @@ sealed class ComponentScreen : AppScreen() {
 
     @Serializable
     object Text : ComponentScreen(), NavKey
+
+    @Serializable
+    object CheckBox : ComponentScreen(), NavKey
 }
 
 sealed class HomeScreen : AppScreen() {

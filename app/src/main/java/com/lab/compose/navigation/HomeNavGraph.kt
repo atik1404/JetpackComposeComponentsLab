@@ -22,6 +22,7 @@ object HomeNavGraph {
                     MaterialComponentName.Button -> backStack.add(ComponentScreen.Button)
                     MaterialComponentName.TextField -> backStack.add(ComponentScreen.TextField)
                     MaterialComponentName.Text -> backStack.add(ComponentScreen.Text)
+                    MaterialComponentName.Checkbox -> backStack.add(ComponentScreen.CheckBox)
                     else -> {}
                 }
             }
