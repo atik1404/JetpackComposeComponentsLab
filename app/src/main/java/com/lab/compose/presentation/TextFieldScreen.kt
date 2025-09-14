@@ -1,26 +1,61 @@
 package com.lab.compose.presentation
 
+import LightDarkPreview
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Divider
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.SentimentDissatisfied
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.lab.compose.designsystem.spacing.ElevationToken
+import com.lab.compose.designsystem.theme.AppTheme
+import com.lab.compose.designsystem.theme.backgroundColors
 import com.lab.compose.ui.common.AppToolbar
 import com.lab.compose.R as Res
 
@@ -37,46 +72,58 @@ fun TextFiledScreen(onClicked: () -> Unit) {
             )
         }
     ) { padding ->
-        val scroll = rememberScrollState()
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
-                .verticalScroll(scroll),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .verticalScroll(rememberScrollState())
+                .background(MaterialTheme.backgroundColors.primary)
+                .padding(padding)
+                .padding(SpacingToken.medium),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             SectionTitle("Filled")
             FilledTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
 
             SectionTitle("Outlined")
             OutlinedTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
 
             SectionTitle("Rounded Border (Outlined + RoundedCornerShape)")
             RoundedBorderTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
 
             SectionTitle("Capsule / Pill Shape")
             CapsuleTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
 
             SectionTitle("Leading Icon")
             LeadingIconTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
 
             SectionTitle("Trailing Icon")
             TrailingIconTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
 
             SectionTitle("Hint (label)")
             HintTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
 
             SectionTitle("Placeholder")
             PlaceholderTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
 
             SectionTitle("Clickable (read-only)")
             ClickableTextFieldSample(onClick = { /* open a picker */ })
+            Spacer(Modifier.height(SpacingToken.extraSmall))
 
             SectionTitle("Multiline")
             MultilineTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
 
             SectionTitle("Password (with visibility toggle)")
             PasswordTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
         }
     }
 }
@@ -88,7 +135,7 @@ fun TextFiledScreen(onClicked: () -> Unit) {
 private fun SectionTitle(text: String) {
     Text(
         text = text,
-        style = MaterialTheme.typography.titleMedium,
+        style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.primary
     )
 }
@@ -150,7 +197,11 @@ fun CapsuleTextFieldSample() {
         singleLine = true,
         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
         shape = CircleShape,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        colors = TextFieldDefaults.textFieldColors(
+            focusedIndicatorColor = Color.Transparent,   // ← hide underline
+            unfocusedIndicatorColor = Color.Transparent,
+        )
     )
 }
 
@@ -178,7 +229,7 @@ fun TrailingIconTextFieldSample() {
         onValueChange = { value = it },
         label = { Text("Message") },
         singleLine = true,
-        trailingIcon = { Icon(Icons.Default.Send, contentDescription = null) },
+        trailingIcon = { Icon(Icons.Default.SentimentDissatisfied, contentDescription = null) },
         modifier = Modifier.fillMaxWidth()
     )
 }
@@ -283,85 +334,12 @@ fun PasswordTextFieldSample() {
     )
 }
 
-/* ------------------------------- Previews ------------------------------- */
-
 @Composable
-private fun PreviewContainer(content: @Composable () -> Unit) {
-    MaterialTheme {
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                content()
-            }
+@LightDarkPreview
+private fun TextFieldScreenPreview(){
+    AppTheme {
+        TextFiledScreen {
+
         }
     }
 }
-
-/* Overall screen previews */
-@Preview(showBackground = true, name = "Showcase - Light")
-@Composable
-private fun Preview_TextFieldShowcase_Light() = PreviewContainer { TextFiledScreen { } }
-
-@Preview(showBackground = true, name = "Showcase - Dark")
-@Composable
-private fun Preview_TextFieldShowcase_Dark() {
-    MaterialTheme(colorScheme = darkColorScheme()) {
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
-            TextFiledScreen { }
-        }
-    }
-}
-
-/* Individual example previews */
-
-@Preview(showBackground = true, name = "Filled")
-@Composable
-private fun Preview_FilledTextField() = PreviewContainer { FilledTextFieldSample() }
-
-@Preview(showBackground = true, name = "Outlined")
-@Composable
-private fun Preview_OutlinedTextField() = PreviewContainer { OutlinedTextFieldSample() }
-
-@Preview(showBackground = true, name = "Rounded Border")
-@Composable
-private fun Preview_RoundedBorderTextField() = PreviewContainer { RoundedBorderTextFieldSample() }
-
-@Preview(showBackground = true, name = "Capsule / Pill")
-@Composable
-private fun Preview_CapsuleTextField() = PreviewContainer { CapsuleTextFieldSample() }
-
-@Preview(showBackground = true, name = "Leading Icon")
-@Composable
-private fun Preview_LeadingIconTextField() = PreviewContainer { LeadingIconTextFieldSample() }
-
-@Preview(showBackground = true, name = "Trailing Icon")
-@Composable
-private fun Preview_TrailingIconTextField() = PreviewContainer { TrailingIconTextFieldSample() }
-
-@Preview(showBackground = true, name = "Hint (Label)")
-@Composable
-private fun Preview_HintTextField() = PreviewContainer { HintTextFieldSample() }
-
-@Preview(showBackground = true, name = "Placeholder")
-@Composable
-private fun Preview_PlaceholderTextField() = PreviewContainer { PlaceholderTextFieldSample() }
-
-@Preview(showBackground = true, name = "Clickable (Read-only)")
-@Composable
-private fun Preview_ClickableTextField() =
-    PreviewContainer { ClickableTextFieldSample(onClick = {}) }
-
-@Preview(showBackground = true, name = "Multiline")
-@Composable
-private fun Preview_MultilineTextField() = PreviewContainer { MultilineTextFieldSample() }
-
-@Preview(showBackground = true, name = "Password")
-@Composable
-private fun Preview_PasswordTextField() = PreviewContainer { PasswordTextFieldSample() }
