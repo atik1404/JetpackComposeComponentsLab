@@ -79,7 +79,7 @@ fun TextFiledScreen(onClicked: () -> Unit) {
                 .background(MaterialTheme.backgroundColors.primary)
                 .padding(padding)
                 .padding(SpacingToken.medium),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.Start
         ) {
             SectionTitle("Filled")
             FilledTextFieldSample()
