@@ -3,23 +3,23 @@ package com.lab.compose.navigation
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
-sealed class AppScreen
+sealed interface AppScreen : NavKey
 
-sealed class ComponentScreen : AppScreen() {
+sealed interface ComponentScreen : AppScreen {
     @Serializable
-    object Button : ComponentScreen(), NavKey
-
-    @Serializable
-    object TextField : ComponentScreen(), NavKey
+    object Button : AppScreen
 
     @Serializable
-    object Text : ComponentScreen(), NavKey
+    object TextField : AppScreen
 
     @Serializable
-    object CheckBox : ComponentScreen(), NavKey
+    object Text : AppScreen
+
+    @Serializable
+    object CheckBox : ComponentScreen, NavKey
 }
 
-sealed class HomeScreen : AppScreen() {
+sealed interface HomeScreen : AppScreen {
     @Serializable
-    object Home : HomeScreen(), NavKey
+    object Home : AppScreen
 }

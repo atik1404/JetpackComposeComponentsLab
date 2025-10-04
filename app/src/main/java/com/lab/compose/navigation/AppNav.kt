@@ -6,13 +6,14 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.toMutableStateList
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 
 @Composable
 fun AppNav() {
-    val backStack = rememberNavBackStack(HomeScreen.Home)
+    val backStack = rememberNavBackStack(HomeScreen.Home).toMutableStateList()
     NavDisplay(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
