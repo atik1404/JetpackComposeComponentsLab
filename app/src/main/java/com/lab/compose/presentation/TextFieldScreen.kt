@@ -1,8 +1,8 @@
 package com.lab.compose.presentation
 
 import LightDarkPreview
-import SpacingToken
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +16,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Email
@@ -33,8 +36,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,14 +46,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.lab.compose.designsystem.spacing.ElevationToken
+import com.lab.compose.designsystem.spacing.RadiusToken
 import com.lab.compose.designsystem.theme.AppTheme
 import com.lab.compose.designsystem.theme.backgroundColors
+import com.lab.compose.designsystem.theme.strokeColors
 import com.lab.compose.ui.common.AppToolbar
 import com.lab.compose.R as Res
 
@@ -76,51 +80,53 @@ fun TextFiledScreen(onClicked: () -> Unit) {
                 .background(MaterialTheme.backgroundColors.primary)
                 .padding(padding)
                 .padding(SpacingToken.medium),
-            horizontalAlignment = Alignment.Start
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SectionTitle("Filled")
-            FilledTextFieldSample()
-            Spacer(Modifier.height(SpacingToken.extraSmall))
 
-            SectionTitle("Outlined")
-            OutlinedTextFieldSample()
-            Spacer(Modifier.height(SpacingToken.extraSmall))
-
-            SectionTitle("Rounded Border (Outlined + RoundedCornerShape)")
-            RoundedBorderTextFieldSample()
-            Spacer(Modifier.height(SpacingToken.extraSmall))
-
-            SectionTitle("Capsule / Pill Shape")
-            CapsuleTextFieldSample()
-            Spacer(Modifier.height(SpacingToken.extraSmall))
-
-            SectionTitle("Leading Icon")
-            LeadingIconTextFieldSample()
-            Spacer(Modifier.height(SpacingToken.extraSmall))
-
-            SectionTitle("Trailing Icon")
-            TrailingIconTextFieldSample()
-            Spacer(Modifier.height(SpacingToken.extraSmall))
-
-            SectionTitle("Hint (label)")
-            HintTextFieldSample()
-            Spacer(Modifier.height(SpacingToken.extraSmall))
-
-            SectionTitle("Placeholder")
-            PlaceholderTextFieldSample()
-            Spacer(Modifier.height(SpacingToken.extraSmall))
-
-            SectionTitle("Clickable (read-only)")
-            ClickableTextFieldSample(onClick = { /* open a picker */ })
-            Spacer(Modifier.height(SpacingToken.extraSmall))
-
-            SectionTitle("Multiline")
-            MultilineTextFieldSample()
-            Spacer(Modifier.height(SpacingToken.extraSmall))
-
-            SectionTitle("Password (with visibility toggle)")
-            PasswordTextFieldSample()
-            Spacer(Modifier.height(SpacingToken.extraSmall))
+            BoxTextFieldSample()
+//            SectionTitle("Filled")
+//            FilledTextFieldSample()
+//            Spacer(Modifier.height(SpacingToken.extraSmall))
+//
+//            SectionTitle("Outlined")
+//            OutlinedTextFieldSample()
+//            Spacer(Modifier.height(SpacingToken.extraSmall))
+//
+//            SectionTitle("Rounded Border (Outlined + RoundedCornerShape)")
+//            RoundedBorderTextFieldSample()
+//            Spacer(Modifier.height(SpacingToken.extraSmall))
+//
+//            SectionTitle("Capsule / Pill Shape")
+//            CapsuleTextFieldSample()
+//            Spacer(Modifier.height(SpacingToken.extraSmall))
+//
+//            SectionTitle("Leading Icon")
+//            LeadingIconTextFieldSample()
+//            Spacer(Modifier.height(SpacingToken.extraSmall))
+//
+//            SectionTitle("Trailing Icon")
+//            TrailingIconTextFieldSample()
+//            Spacer(Modifier.height(SpacingToken.extraSmall))
+//
+//            SectionTitle("Hint (label)")
+//            HintTextFieldSample()
+//            Spacer(Modifier.height(SpacingToken.extraSmall))
+//
+//            SectionTitle("Placeholder")
+//            PlaceholderTextFieldSample()
+//            Spacer(Modifier.height(SpacingToken.extraSmall))
+//
+//            SectionTitle("Clickable (read-only)")
+//            ClickableTextFieldSample(onClick = { /* open a picker */ })
+//            Spacer(Modifier.height(SpacingToken.extraSmall))
+//
+//            SectionTitle("Multiline")
+//            MultilineTextFieldSample()
+//            Spacer(Modifier.height(SpacingToken.extraSmall))
+//
+//            SectionTitle("Password (with visibility toggle)")
+//            PasswordTextFieldSample()
+//            Spacer(Modifier.height(SpacingToken.extraSmall))
         }
     }
 }
@@ -195,7 +201,7 @@ fun CapsuleTextFieldSample() {
         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
         shape = CircleShape,
         modifier = Modifier.fillMaxWidth(),
-        colors = TextFieldDefaults.colors(
+        colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Transparent,   // ← hide underline
             unfocusedIndicatorColor = Color.Transparent,
         )
@@ -332,8 +338,48 @@ fun PasswordTextFieldSample() {
 }
 
 @Composable
+fun BoxTextFieldSample() {
+    Column {
+        Text(
+            text = "Sample Text in Box",
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Light
+        )
+        Spacer(modifier = Modifier.height(SpacingToken.micro))
+
+        var text by rememberSaveable { mutableStateOf("") }
+
+        OutlinedTextField(
+            value = text,
+            onValueChange = { text = it },
+            placeholder = { Text("Search anything…") },
+            singleLine = true,
+            leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+            shape = RoundedCornerShape(RadiusToken.large),
+            modifier = Modifier
+                .fillMaxWidth(),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                backgroundColor = MaterialTheme.backgroundColors.primary,
+                focusedBorderColor = MaterialTheme.strokeColors.focusedBorder,
+                unfocusedBorderColor = MaterialTheme.strokeColors.unfocusedBorder,
+                errorBorderColor = MaterialTheme.strokeColors.errorBorder,
+            )
+        )
+
+        Spacer(modifier = Modifier.height(SpacingToken.micro))
+
+        Text(
+            text = "Invalid TextField Example",
+            color = MaterialTheme.colorScheme.error,
+            style = MaterialTheme.typography.bodySmall,
+            fontWeight = FontWeight.Light
+        )
+    }
+}
+
+@Composable
 @LightDarkPreview
-private fun TextFieldScreenPreview(){
+private fun TextFieldScreenPreview() {
     AppTheme {
         TextFiledScreen {
 

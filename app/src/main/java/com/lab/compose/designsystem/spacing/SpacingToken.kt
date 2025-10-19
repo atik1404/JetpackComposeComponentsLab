@@ -1,19 +1,22 @@
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.intuit.sdp.R
 
 object SpacingToken {
-    val none = 0.dp           // no space
-    val micro = 4.dp          // very tight space
-    val tiny = 8.dp           // small space, text-to-text
-    val extraSmall = 10.dp    // uncommon but slightly bigger than tiny
-    val small = 12.dp         // common compact spacing
-    val medium = 16.dp        // default body padding
-    val large = 24.dp         // section spacing
-    val extraLarge = 32.dp    // screen-level spacing
-    val huge = 48.dp          // banners, dialogs, big gaps
+    val none: Dp @Composable get() = 0.dp  // no space
+    val micro: Dp @Composable get() = dimensionResource(id = R.dimen._4sdp)    // 4  // very tight space
+    val tiny: Dp @Composable get() = dimensionResource(id = R.dimen._8sdp)     // 8  // small space, text-to-text
+    val extraSmall: Dp @Composable get() = dimensionResource(id = R.dimen._10sdp) // 10  // uncommon but slightly bigger than tiny
+    val small: Dp @Composable get() = dimensionResource(id = R.dimen._12sdp)   // 12  // common compact spacing
+    val medium: Dp @Composable get() = dimensionResource(id = R.dimen._16sdp)  // 16  // default body padding
+    val large: Dp @Composable get() = dimensionResource(id = R.dimen._24sdp)   // 24  // section spacing
+    val extraLarge: Dp @Composable get() = dimensionResource(id = R.dimen._32sdp) // 32  // screen-level spacing
+    val huge: Dp @Composable get() = dimensionResource(id = R.dimen._48sdp)    // 48  // banners, dialogs, big gaps
 }
 
 
@@ -38,11 +41,13 @@ fun Modifier.appPaddingOnly(
     start: Dp = 0.dp,
     top: Dp = 0.dp,
     end: Dp = 0.dp,
-    bottom: Dp = 0.dp
+    bottom: Dp = 0.dp,
 ): Modifier = this.then(
     Modifier.padding(start = start, top = top, end = end, bottom = bottom)
 )
 
+@Composable
 fun appHorizontalArrangement(space: Dp = SpacingToken.none) = Arrangement.spacedBy(space)
 
+@Composable
 fun appVerticalArrangement(space: Dp = SpacingToken.none) = Arrangement.spacedBy(space)

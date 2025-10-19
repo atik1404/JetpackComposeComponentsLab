@@ -68,6 +68,9 @@ dependencies {
     implementation(libs.bundles.network.dependencies)
     implementation(libs.bundles.compose.navigation.depedendencies)
 
+    implementation(libs.sdp)
+    implementation(libs.ssp)
+
     implementation(libs.image.coil)
     implementation(libs.timber)
     debugImplementation(libs.leakcanary)
