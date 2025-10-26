@@ -19,6 +19,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,6 +43,8 @@ import com.lab.compose.ui.components.AppText
 import com.lab.compose.R as Res
 import com.lab.compose.model.MaterialComponentEntity
 import com.lab.compose.model.MaterialComponentName
+import com.lab.compose.ui.common.ShowBottomSheet
+import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,6 +58,7 @@ fun MaterialComponentGrid(onItemClicked: (component: MaterialComponentName) -> U
             )
         }
     ) { padding ->
+        var showBottomSheet by rememberSaveable { mutableStateOf(false) }
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             modifier = Modifier
@@ -62,9 +70,17 @@ fun MaterialComponentGrid(onItemClicked: (component: MaterialComponentName) -> U
             items(materialComponents.size) { index ->
                 val component = materialComponents[index]
                 BuildItemCard(component) { item ->
+                    //showBottomSheet = true
                     onItemClicked(item)
                 }
             }
+        }
+        if(showBottomSheet){
+            ShowBottomSheet(
+                onDismissRequest = {
+                    showBottomSheet = false
+                }
+            )
         }
     }
 }
