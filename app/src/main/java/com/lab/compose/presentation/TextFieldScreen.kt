@@ -84,49 +84,49 @@ fun TextFiledScreen(onClicked: () -> Unit) {
         ) {
 
             BoxTextFieldSample()
-//            SectionTitle("Filled")
-//            FilledTextFieldSample()
-//            Spacer(Modifier.height(SpacingToken.extraSmall))
-//
-//            SectionTitle("Outlined")
-//            OutlinedTextFieldSample()
-//            Spacer(Modifier.height(SpacingToken.extraSmall))
-//
-//            SectionTitle("Rounded Border (Outlined + RoundedCornerShape)")
-//            RoundedBorderTextFieldSample()
-//            Spacer(Modifier.height(SpacingToken.extraSmall))
-//
-//            SectionTitle("Capsule / Pill Shape")
-//            CapsuleTextFieldSample()
-//            Spacer(Modifier.height(SpacingToken.extraSmall))
-//
-//            SectionTitle("Leading Icon")
-//            LeadingIconTextFieldSample()
-//            Spacer(Modifier.height(SpacingToken.extraSmall))
-//
-//            SectionTitle("Trailing Icon")
-//            TrailingIconTextFieldSample()
-//            Spacer(Modifier.height(SpacingToken.extraSmall))
-//
-//            SectionTitle("Hint (label)")
-//            HintTextFieldSample()
-//            Spacer(Modifier.height(SpacingToken.extraSmall))
-//
-//            SectionTitle("Placeholder")
-//            PlaceholderTextFieldSample()
-//            Spacer(Modifier.height(SpacingToken.extraSmall))
-//
-//            SectionTitle("Clickable (read-only)")
-//            ClickableTextFieldSample(onClick = { /* open a picker */ })
-//            Spacer(Modifier.height(SpacingToken.extraSmall))
-//
-//            SectionTitle("Multiline")
-//            MultilineTextFieldSample()
-//            Spacer(Modifier.height(SpacingToken.extraSmall))
-//
-//            SectionTitle("Password (with visibility toggle)")
-//            PasswordTextFieldSample()
-//            Spacer(Modifier.height(SpacingToken.extraSmall))
+            SectionTitle("Filled")
+            FilledTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
+
+            SectionTitle("Outlined")
+            OutlinedTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
+
+            SectionTitle("Rounded Border (Outlined + RoundedCornerShape)")
+            RoundedBorderTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
+
+            SectionTitle("Capsule / Pill Shape")
+            CapsuleTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
+
+            SectionTitle("Leading Icon")
+            LeadingIconTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
+
+            SectionTitle("Trailing Icon")
+            TrailingIconTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
+
+            SectionTitle("Hint (label)")
+            HintTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
+
+            SectionTitle("Placeholder")
+            PlaceholderTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
+
+            SectionTitle("Clickable (read-only)")
+            ClickableTextFieldSample(onClick = { /* open a picker */ })
+            Spacer(Modifier.height(SpacingToken.extraSmall))
+
+            SectionTitle("Multiline")
+            MultilineTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
+
+            SectionTitle("Password (with visibility toggle)")
+            PasswordTextFieldSample()
+            Spacer(Modifier.height(SpacingToken.extraSmall))
         }
     }
 }
