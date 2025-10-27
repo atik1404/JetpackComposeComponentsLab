@@ -61,59 +61,6 @@ fun AppDatePickerDialog(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun AppTimePickerDialog(
-    onDismissRequest: () -> Unit,
-    onConfirm: (hour: Int, minute: Int) -> Unit,
-
-    // optional configs
-    initialHour: Int? = null,      // 0..23
-    initialMinute: Int? = null,    // 0..59
-    is24Hour: Boolean = true,
-
-    confirmText: String = "OK",
-    dismissText: String = "Cancel",
-) {
-    // Build initial values
-    val cal = remember {
-        Calendar.getInstance().apply {
-            isLenient = false
-        }
-    }
-
-    val timePickerState = rememberTimePickerState(
-        initialHour = initialHour ?: cal.get(Calendar.HOUR_OF_DAY),
-        initialMinute = initialMinute ?: cal.get(Calendar.MINUTE),
-        is24Hour = is24Hour,
-    )
-
-    TimePickerDialog(
-        onDismissRequest = onDismissRequest,
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    onConfirm(timePickerState.hour, timePickerState.minute)
-                }
-            ) {
-                Text(confirmText)
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismissRequest) {
-                Text(dismissText)
-            }
-        },
-        // You CAN add a mode toggle button to switch between dial and text input.
-        // Material3 exposes TimePickerDisplayMode + TimePickerDialogDefaults,
-        // but keeping it minimal here for clarity.
-    ) {
-        TimePicker(
-            state = timePickerState
-        )
-    }
-}
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MinMaxSelectableDates(
