@@ -43,6 +43,7 @@ import com.lab.compose.ui.components.AppText
 import com.lab.compose.R as Res
 import com.lab.compose.model.MaterialComponentEntity
 import com.lab.compose.model.MaterialComponentName
+import com.lab.compose.ui.common.AppDatePickerDialog
 import com.lab.compose.ui.common.ShowBottomSheet
 import timber.log.Timber
 
@@ -70,14 +71,24 @@ fun MaterialComponentGrid(onItemClicked: (component: MaterialComponentName) -> U
             items(materialComponents.size) { index ->
                 val component = materialComponents[index]
                 BuildItemCard(component) { item ->
-                    //showBottomSheet = true
-                    onItemClicked(item)
+                    showBottomSheet = true
+                    //onItemClicked(item)
                 }
             }
         }
         if(showBottomSheet){
-            ShowBottomSheet(
+//            ShowBottomSheet(
+//                onDismissRequest = {
+//                    showBottomSheet = false
+//                }
+//            )
+
+            AppDatePickerDialog(
                 onDismissRequest = {
+                    showBottomSheet = false
+                },
+                onConfirm = {
+                    Timber.e("selectedDate: $it")
                     showBottomSheet = false
                 }
             )

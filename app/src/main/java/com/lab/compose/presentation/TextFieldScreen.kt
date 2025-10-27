@@ -16,9 +16,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Email
@@ -29,16 +26,23 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.SentimentDissatisfied
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -127,6 +131,32 @@ fun TextFiledScreen(onClicked: () -> Unit) {
             SectionTitle("Password (with visibility toggle)")
             PasswordTextFieldSample()
             Spacer(Modifier.height(SpacingToken.extraSmall))
+
+
+            var text by remember { mutableStateOf("") }
+
+            val cities = listOf(
+                "Dhaka",
+                "Chattogram",
+                "Rajshahi",
+                "Khulna",
+                "Sylhet",
+                "Barishal",
+                "Rangpur",
+                "Mymensingh"
+            )
+
+            AutoCompleteTextField(
+                label = "Select City",
+                allOptions = cities,
+                value = text,
+                onValueChange = { text = it },
+                onOptionSelected = { selected ->
+                    // you can do extra work here if needed
+                    // e.g. close keyboard, trigger API, etc.
+                    println("User picked: $selected")
+                }
+            )
         }
     }
 }
@@ -201,7 +231,7 @@ fun CapsuleTextFieldSample() {
         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
         shape = CircleShape,
         modifier = Modifier.fillMaxWidth(),
-        colors = TextFieldDefaults.textFieldColors(
+        colors = TextFieldDefaults.colors(
             focusedIndicatorColor = Color.Transparent,   // ← hide underline
             unfocusedIndicatorColor = Color.Transparent,
         )
@@ -358,11 +388,13 @@ fun BoxTextFieldSample() {
             shape = RoundedCornerShape(RadiusToken.large),
             modifier = Modifier
                 .fillMaxWidth(),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                backgroundColor = MaterialTheme.backgroundColors.primary,
-                focusedBorderColor = MaterialTheme.strokeColors.focusedBorder,
-                unfocusedBorderColor = MaterialTheme.strokeColors.unfocusedBorder,
-                errorBorderColor = MaterialTheme.strokeColors.errorBorder,
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.backgroundColors.primary,
+                unfocusedContainerColor = MaterialTheme.backgroundColors.primary,
+                disabledContainerColor = MaterialTheme.backgroundColors.primary,
+                errorContainerColor = MaterialTheme.backgroundColors.primary,
+                focusedIndicatorColor = MaterialTheme.strokeColors.primary,
+                unfocusedIndicatorColor = MaterialTheme.strokeColors.primary,
             )
         )
 
@@ -376,6 +408,92 @@ fun BoxTextFieldSample() {
         )
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AutoCompleteTextField(
+    modifier: Modifier = Modifier,
+    label: String = "",
+    allOptions: List<String>,
+    value: String,
+    onValueChange: (String) -> Unit,
+    onOptionSelected: (String) -> Unit = {},
+    enabled: Boolean = true,
+    isError: Boolean = false,
+    supportingText: String? = null,
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    // filter suggestions based on current text
+//    val filteredOptions = remember(value, allOptions) {
+//        if (value.isBlank()) {
+//            allOptions   // or emptyList() if you don't want to show all initially
+//        } else {
+//            allOptions.filter {
+//                it.contains(value, ignoreCase = true)
+//            }
+//        }
+//    }
+
+    // close menu if no matches
+    val shouldShowMenu = expanded && allOptions.isNotEmpty()
+
+    ExposedDropdownMenuBox(
+        expanded = shouldShowMenu,
+        onExpandedChange = { wantExpand ->
+            // only allow expand if we actually have something to show
+            expanded = wantExpand && allOptions.isNotEmpty()
+        },
+        modifier = modifier
+    ) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = {
+                onValueChange(it)
+                expanded = true // as soon as user types, open
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .menuAnchor(
+                    MenuAnchorType.PrimaryNotEditable,
+                    true
+                ), // required for ExposedDropdownMenuBox
+            enabled = enabled,
+            isError = isError,
+            label = { if (label.isNotEmpty()) Text(label) },
+            trailingIcon = {
+                ExposedDropdownMenuDefaults.TrailingIcon(
+                    expanded = shouldShowMenu
+                )
+            },
+            supportingText = {
+                if (isError && supportingText != null) {
+                    Text(text = supportingText)
+                }
+            },
+            singleLine = true,
+            readOnly = true
+        )
+
+        ExposedDropdownMenu(
+            expanded = shouldShowMenu,
+            onDismissRequest = { expanded = false },
+        ) {
+            allOptions.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(option) },
+                    onClick = {
+                        onValueChange(option)           // update text in field
+                        onOptionSelected(option)        // callback for parent (optional)
+                        expanded = false
+                    },
+                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+                )
+            }
+        }
+    }
+}
+
 
 @Composable
 @LightDarkPreview
