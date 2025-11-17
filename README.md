@@ -56,9 +56,11 @@ It is designed to be:
 
 ---
 
-## 📸 Screenshots / Demo (Optional)
-
-*(Add images or gifs here to showcase your components playground UI)*
+## 📸 Screenshots)
+![screenshot](/Volumes/MyFiles/Projects/Playground/JetpackComposeLab/screenshots/home_screen.png)
+![screenshot](/Volumes/MyFiles/Projects/Playground/JetpackComposeLab/screenshots/button_screen.png)
+![screenshot](/Volumes/MyFiles/Projects/Playground/JetpackComposeLab/screenshots/textfield_screen.png)
+![screenshot](/Volumes/MyFiles/Projects/Playground/JetpackComposeLab/screenshots/checkbox_screen.png)
 
 ---
 
