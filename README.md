@@ -57,10 +57,10 @@ It is designed to be:
 ---
 
 ## 📸 Screenshots)
-![screenshot](/Volumes/MyFiles/Projects/Playground/JetpackComposeLab/screenshots/home_screen.png)
-![screenshot](/Volumes/MyFiles/Projects/Playground/JetpackComposeLab/screenshots/button_screen.png)
-![screenshot](/Volumes/MyFiles/Projects/Playground/JetpackComposeLab/screenshots/textfield_screen.png)
-![screenshot](/Volumes/MyFiles/Projects/Playground/JetpackComposeLab/screenshots/checkbox_screen.png)
+![screenshot](https://github.com/atik1404/JetpackComposeComponentsLab/blob/main/screenshots/home_screen.png?raw=true)
+![screenshot](https://github.com/atik1404/JetpackComposeComponentsLab/blob/main/screenshots/button_screen.png?raw=true)
+![screenshot](https://github.com/atik1404/JetpackComposeComponentsLab/blob/main/screenshots/textfield_screen.png?raw=true)
+![screenshot](https://github.com/atik1404/JetpackComposeComponentsLab/blob/main/screenshots/checkbox_screen.png?raw=true)
 
 ---
 
